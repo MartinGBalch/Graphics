@@ -20,13 +20,6 @@ void setUniform(const Shader & shader, int location, float value)
 	glProgramUniform1f(shader.handle, location, value);
 }
 
-void clearFramebuffer(const FrameBuffer & fb)
-{
-	glBindFramebuffer(GL_FRAMEBUFFER, fb.handle);
-	glClear(GL_COLOR_BUFFER_BIT);
-	glBindFramebuffer(GL_FRAMEBUFFER, 0);
-}
-
 void setUniform(const Shader & shader, int location, int value, int press)
 {
 	glProgramUniform1i(shader.handle, location, value);
@@ -38,6 +31,19 @@ void setUniform(const Shader & s, int location, const Texture & value, int slot)
 	glBindTexture(GL_TEXTURE_2D, value.handle);
 	glProgramUniform1i(s.handle, location, slot);
 
+}
+
+void setFlags(int flags)
+{
+	if (flags &RenderFlag::DEPTH) glEnable(GL_DEPTH_TEST);
+	else glDisable(GL_DEPTH_TEST);	
+}
+
+void clearFramebuffer(const FrameBuffer & r, bool color, bool depth)
+{
+	glBindFramebuffer(GL_FRAMEBUFFER, r.handle);
+	glClear(GL_COLOR_BUFFER_BIT * color | GL_DEPTH_BUFFER_BIT * depth);
+	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 }
 
 namespace __internal

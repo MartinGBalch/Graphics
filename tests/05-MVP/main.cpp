@@ -1,0 +1,62 @@
+#include "graphics\Context.h"
+#include "graphics\Vertex.h"
+#include "graphics\RenderObjects.h"
+#include "graphics\draw.h"
+#include "graphics\genShape.h"
+#include "graphics\load.h"
+
+#include"glm/ext.hpp"
+int main()
+{
+	Context context;
+	context.Init(800, 1200);
+
+
+	Vertex vquad[] = {
+		{ { -1,-1,0,1 },{},{ 0,0 } },
+		{ { 1,-1,0,1 },{},{ 1,0 } },
+		{ { 1, 1,0,1 },{},{ 1,1 } },
+		{ { -1, 1,0,1 },{},{ 0,1 } }
+	};
+
+	unsigned quadidx[] = { 0,1,3, 1,2,3 };
+
+
+
+	FrameBuffer f = { 0,800,800 };
+
+	Geometry quad = makeGeometry(vquad, 4, quadidx, 6);
+	Texture tex = loadTexture("../../resources/textures/soulspear_diffuse.tga");
+	Geometry model = loadGeometry("../../resources/models/soulspear.obj");
+	Shader shade = loadShader("../../resources/shaders/mvplite.vert", "../../resources/shaders/mvplite.frag");
+
+	glm::mat4 cam_view = glm::lookAt(glm::vec3(0, 3, -4), glm::vec3(0, 1, 0), glm::vec3(0, 1, 0));
+	glm::mat4 cam_proj = glm::perspective(45.f, 800.f / 600.f, .01f, 100.f);
+	glm::mat4 go_model; // identity matrix for now
+
+
+	double x = 0;
+	double y = 0;
+	while (context.step())
+	{
+		glm::mat4 rot = glm::rotate((float)context.getTime(), glm::vec3(1, 1, 1));
+		glm::mat4 cam_view = glm::lookAt(glm::vec3(0, 3, -4), glm::vec3(0, 1, 0), glm::vec3(0, 1, 0));
+
+
+		clearFramebuffer(f);
+		setFlags(RenderFlag::DEPTH);
+		int loc = 0, tslot = 0;
+		setUniforms(shade, loc, tslot, cam_proj,cam_view,go_model,tex);
+		s0_draw(f, shade, model);
+
+
+	}
+
+	freeGeometry(model);
+	freeShader(shade);
+	freeTexture(tex);
+
+	context.Terminate();
+	return 0;
+
+}
