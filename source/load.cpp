@@ -92,6 +92,8 @@ Geometry loadGeometry(const char * path)
 		verts[i].norm = { n[0],n[1],n[2],1 };
 	}
 
+	solveTangent(verts, vsize, indices, isize);
+
 	retval = makeGeometry(verts, vsize, indices, isize);
 
 	delete[] verts;

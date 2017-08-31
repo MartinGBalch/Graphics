@@ -1,10 +1,46 @@
+#define GLM_FORCE_SWIZZLE
+
 #include "Graphics/RenderObjects.h"
 #include "Graphics/Vertex.h"
 #include "glinc.h"
 
+
 #ifdef _DEBUG
 #include <iostream>
 #endif // _DEBUG
+
+glm::vec4 calcTangent(const Vertex &v0, const Vertex &v1, const Vertex &v2)
+{
+	glm::vec4 p1 = v1.position - v0.position;
+	glm::vec4 p2 = v2.position - v0.position;
+
+	glm::vec2 t1 = v1.uv - v0.uv;
+	glm::vec2 t2 = v2.uv - v0.uv;
+
+	return glm::normalize((p1*t2.y - p2*t1.y) / (t1.x*t2.y - t1.y*t2.x));
+	//uv.x will follow the tangents
+	//uv.y will follow the bitangents
+}
+
+
+void solveTangent(Vertex * v, size_t vsize, const unsigned * idxs, size_t isize)
+{
+	for (int i = 0; i < isize; i += 3)
+	{
+		glm::vec4 T = calcTangent(v[idxs[i]], v[idxs[i + 1]], v[idxs[i + 2]]);
+
+		for (int j = 0; j < 3; ++j)
+		{
+			v[idxs[i + j]].tan = T + v[idxs[i + j]].tan;
+		}
+
+		for (int i = 0; i < vsize; ++i)
+		{
+			v[i].bitan = glm::vec4(glm::cross(v[i].norm.xyz(), v[i].tan.xyz()), 0);
+		}
+	}
+}
+
 
 Geometry makeGeometry(const Vertex * vertices, size_t vsize, const unsigned * indices, size_t isize)
 {
@@ -32,6 +68,12 @@ Geometry makeGeometry(const Vertex * vertices, size_t vsize, const unsigned * in
 
 	glEnableVertexAttribArray(3);
 	glVertexAttribPointer(3, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)40);
+
+	glEnableVertexAttribArray(4);
+	glVertexAttribPointer(4, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)56);
+
+	glEnableVertexAttribArray(5);
+	glVertexAttribPointer(5, 4, GL_FLOAT, GL_FALSE, sizeof(Vertex), (void*)72);
 
 	glBindVertexArray(0);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -151,3 +193,5 @@ void freeTexture(Texture & t)
 	glDeleteTextures(1, &t.handle);
 	t = { 0 };
 }
+
+

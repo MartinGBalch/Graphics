@@ -35,3 +35,5 @@ void freeShader(Shader &s);
 
 Texture makeTexture(unsigned w, unsigned h, unsigned c, const unsigned char *pixels);
 void freeTexture(Texture &t);
+
+void solveTangent(Vertex *v, size_t vsize, const unsigned *idxs, size_t isize);

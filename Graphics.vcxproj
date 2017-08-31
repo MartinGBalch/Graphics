@@ -74,7 +74,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>$(SolutionDir)deps\include\;C:\Users\s179122\Source\Repos\Graphics\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)deps\include\;$(SolutionDir)\include</AdditionalIncludeDirectories>
     </ClCompile>
     <Lib>
       <AdditionalDependencies>opengl32.lib;glew32s.lib;glfw3.lib</AdditionalDependencies>

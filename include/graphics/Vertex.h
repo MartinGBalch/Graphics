@@ -8,4 +8,7 @@ struct Vertex
 	glm::vec4 color;
 	glm::vec2 uv;
 	glm::vec4 norm;
+
+	glm::vec4 tan;
+	glm::vec4 bitan;
 };

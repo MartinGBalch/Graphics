@@ -26,6 +26,11 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "06-Lights", "tests\06-Light
 		{03BF6FAF-DB8C-4137-B387-EAEFE949A910} = {03BF6FAF-DB8C-4137-B387-EAEFE949A910}
 	EndProjectSection
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "07-Materials", "tests\07-Materials\07-Materials.vcxproj", "{4E4A80FC-3DD9-4D15-BB1A-2C28D4B17366}"
+	ProjectSection(ProjectDependencies) = postProject
+		{03BF6FAF-DB8C-4137-B387-EAEFE949A910} = {03BF6FAF-DB8C-4137-B387-EAEFE949A910}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -90,6 +95,14 @@ Global
 		{C92685DC-025C-45A7-94F8-3D8D0ABCE4FE}.Release|x64.Build.0 = Release|x64
 		{C92685DC-025C-45A7-94F8-3D8D0ABCE4FE}.Release|x86.ActiveCfg = Release|Win32
 		{C92685DC-025C-45A7-94F8-3D8D0ABCE4FE}.Release|x86.Build.0 = Release|Win32
+		{4E4A80FC-3DD9-4D15-BB1A-2C28D4B17366}.Debug|x64.ActiveCfg = Debug|x64
+		{4E4A80FC-3DD9-4D15-BB1A-2C28D4B17366}.Debug|x64.Build.0 = Debug|x64
+		{4E4A80FC-3DD9-4D15-BB1A-2C28D4B17366}.Debug|x86.ActiveCfg = Debug|Win32
+		{4E4A80FC-3DD9-4D15-BB1A-2C28D4B17366}.Debug|x86.Build.0 = Debug|Win32
+		{4E4A80FC-3DD9-4D15-BB1A-2C28D4B17366}.Release|x64.ActiveCfg = Release|x64
+		{4E4A80FC-3DD9-4D15-BB1A-2C28D4B17366}.Release|x64.Build.0 = Release|x64
+		{4E4A80FC-3DD9-4D15-BB1A-2C28D4B17366}.Release|x86.ActiveCfg = Release|Win32
+		{4E4A80FC-3DD9-4D15-BB1A-2C28D4B17366}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
