@@ -16,11 +16,7 @@ struct Shader
 	unsigned handle;
 };
 
-struct FrameBuffer
-{
-	unsigned handle;
-	unsigned width, height;
-};
+
 
 struct Texture
 {
@@ -33,7 +29,17 @@ void freeGeometry(Geometry &g);
 Shader makeShader(const char *vert_source, const char *frag_source);
 void freeShader(Shader &s);
 
-Texture makeTexture(unsigned w, unsigned h, unsigned c, const unsigned char *pixels);
-void freeTexture(Texture &t);
-
 void solveTangent(Vertex *v, size_t vsize, const unsigned *idxs, size_t isize);
+
+Texture makeTexture(unsigned w, unsigned h, unsigned c, const void  *pixels, bool isFloat = false);
+void freeTexture(Texture &t);
+struct FrameBuffer
+{
+	unsigned handle;
+	unsigned width, height;
+	unsigned nTargets;
+	Texture depthTarget;
+	Texture targets[8];
+};
+FrameBuffer MakeFrameBuffer(unsigned w, unsigned h, unsigned c, bool hasDepth, unsigned nTargets, unsigned nFloatTargets);
+void freeFrameBuffer(FrameBuffer & fb);

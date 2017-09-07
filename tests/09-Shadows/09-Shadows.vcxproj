@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{F4443B54-6C55-4A26-9E95-7C5621ACFA54}</ProjectGuid>
-    <RootNamespace>shaders</RootNamespace>
+    <ProjectGuid>{90B2F3DF-BF33-4D6F-AAC9-5CD4149799A6}</ProjectGuid>
+    <RootNamespace>My09Shadows</RootNamespace>
     <WindowsTargetPlatformVersion>8.1</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -74,7 +74,12 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(SolutionDir)include\</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(SolutionDir)$(Configuration)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>graphics.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -110,20 +115,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <None Include="direct.frag" />
-    <None Include="direct.vert" />
-    <None Include="lambert.frag" />
-    <None Include="lambert.vert" />
-    <None Include="mvplite.frag" />
-    <None Include="mvplite.vert" />
-    <None Include="point.frag" />
-    <None Include="point.vert" />
-    <None Include="shadow.frag" />
-    <None Include="shadow.vert" />
-    <None Include="standard.frag" />
-    <None Include="standard.vert" />
-    <None Include="test.frag" />
-    <None Include="test.vert" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
