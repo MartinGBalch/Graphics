@@ -43,7 +43,14 @@ int main()
 	// Light
 	glm::vec3 light_dir = glm::normalize(glm::vec3(.8, -1, -1));
 	glm::mat4 light_proj = glm::ortho<float>(-10, 10, -10, 10, -10, 10);
-	glm::mat4 light_view = glm::lookAt(-light_dir, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+	glm::mat4 light_view = glm::lookAt(-light_dir, glm::vec3(0, 0, 0), glm::vec3(1, .5f, 0));
+	glm::vec4 color = glm::vec4(1, 0, 0, 1);
+
+	// Light2
+	glm::vec3 light_dir2 = glm::normalize(glm::vec3(.3, -.5, -1));
+	glm::mat4 light_proj2 = glm::ortho<float>(-10, 10, -10, 10, -10, 10);
+	glm::mat4 light_view2 = glm::lookAt(-light_dir, glm::vec3(0, 0, 0), glm::vec3(.5f, 2, 0));
+	glm::vec4 color2 = glm::vec4(0, 1, 0, 1);
 
 	Shader shdr_shadow = loadShader("../../resources/shaders/shadow.vert",
 		"../../resources/shaders/shadow.frag");
@@ -56,15 +63,18 @@ int main()
 
 	while (context.step())
 	{
+		float time = context.getTime();
 		setFlags(RenderFlag::DEPTH);
 		clearFramebuffer(fb_shadow, false, true);
 
+		ss_model = glm::rotate(time + 5, glm::vec3(0, 1, 0));
+
 		int loc = 0 , slot = 0;
-		setUniforms(shdr_shadow, loc, slot, light_proj, light_view, floor_model);
+		setUniforms(shdr_shadow, loc, slot, light_proj, light_view,floor_model);
 		s0_draw(fb_shadow, shdr_shadow, floor_geo);
 
 		loc = slot = 0;
-		setUniforms(shdr_shadow, loc, slot, light_proj, light_view, ss_model);
+		setUniforms(shdr_shadow, loc, slot, light_proj, light_view,ss_model);
 		s0_draw(fb_shadow, shdr_shadow, ss_geo);
 		
 		loc = slot = 0;
@@ -78,24 +88,27 @@ int main()
 		setUniforms(shdr_direct, loc, slot,
 			cam_proj, cam_view,     // Camera Data
 			floor_model,            // Geometry Data
-			light_proj, light_view, // Light Data
-			fb_shadow.depthTarget); // Shadow Map
+			light_proj, light_view,
+			light_proj2, light_view2,// Light Data          
+			fb_shadow.depthTarget, color, color2); // Shadow Map
 		s0_draw(screen, shdr_direct, floor_geo);
 
 		loc = slot = 0;
 		setUniforms(shdr_direct, loc, slot,
 			cam_proj, cam_view,     // Camera Data
 			ss_model,            // Geometry Data
-			light_proj, light_view, // Light Data
-			fb_shadow.depthTarget); // Shadow Map
+			light_proj, light_view,
+			light_proj2, light_view2,// Light Data
+			fb_shadow.depthTarget, color, color2); // Shadow Map
 		s0_draw(screen, shdr_direct, ss_geo);
 
 		loc = slot = 0;
 		setUniforms(shdr_direct, loc, slot,
 			cam_proj, cam_view,     // Camera Data
 			cube_model,            // Geometry Data
-			light_proj, light_view, // Light Data
-			fb_shadow.depthTarget); // Shadow Map
+			light_proj, light_view,
+			light_proj2, light_view2,// Light Data
+			fb_shadow.depthTarget, color, color2); // Shadow Map
 		s0_draw(screen, shdr_direct, cube_geo);
 
 

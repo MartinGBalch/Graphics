@@ -1,6 +1,6 @@
 #pragma once
 
-#include "glm\glm.hpp"
+
 
 struct Vertex;
 struct Geometry
@@ -43,3 +43,10 @@ struct FrameBuffer
 };
 FrameBuffer MakeFrameBuffer(unsigned w, unsigned h, unsigned c, bool hasDepth, unsigned nTargets, unsigned nFloatTargets);
 void freeFrameBuffer(FrameBuffer & fb);
+
+struct cubeTexture
+{
+	unsigned handle;
+};
+
+//cubeTexture makeCubeTexture(unsigned w, unsigned h, unsigned c, const void  *pixels, bool isFloat = false);
