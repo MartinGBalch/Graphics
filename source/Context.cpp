@@ -48,6 +48,7 @@ bool Context::Init(size_t w, size_t h, const char * title)
 	glDebugMessageCallback(GL_errorCallback, 0);
 	glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, 0, true);
 
+	glClearColor(0.7, 0.0, 0.5, 1.0);
 #endif // _DEBUG
 
 	return true;

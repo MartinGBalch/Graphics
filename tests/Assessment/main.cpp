@@ -35,7 +35,8 @@ void main()
 	glm::mat4   cam_proj;
 
 	Camera cam;
-	cam.proj = glm::perspective(45.f, 1280.f / 720.f, 1.f, 10.f);
+	cam.proj = glm::perspective(45.f, 1280.f / 720.f, 1.f, 100.f);
+	cam.view;// = glm::lookAt(glm::vec3(0, 0, 0), glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
 	sky_geo = loadGeometry("../../resources/models/cube.obj");
 	sky_model = glm::scale(glm::vec3(20, 20, 20));
 
@@ -48,13 +49,13 @@ void main()
 	int loc = 0, slot = 0;
 	while (context.step())
 	{
-		loc = slot = 0;
 		float time = context.getTime();
 		setFlags(RenderFlag::DEPTH);
 		clearFramebuffer(screen);
 
-		sky_model = glm::rotate(time, glm::vec3(0, 1, 0));
+		sky_model = glm::rotate(time , glm::vec3(0,1,0)) * glm::scale(glm::vec3(100,100,100));
 
+		loc = slot = 0;
 		setUniforms(sky_shader, loc, slot, cam.proj, cam.view, sky_model, sky_map);
 		s0_draw(screen, sky_shader, sky_geo);
 	}
