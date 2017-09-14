@@ -27,7 +27,7 @@ void __internal::t_setUniform(const Shader & s, int & loc_io, int & tex_io, cons
 	__internal::t_setUniform(s, loc_io, tex_io, val.color);
 	__internal::t_setUniform(s, loc_io, tex_io, val.intensity);
 }
-
+ 
 
 SimplePresetScene::SimplePresetScene()
 {
@@ -57,6 +57,7 @@ SimplePresetScene::SimplePresetScene()
 	go[2].normal = loadTexture("../../resources/textures/earth_normal.jpg");
 	go[2].model = glm::scale(glm::vec3(2, 2, 2)) * glm::translate(glm::vec3(2, 1, -1));
 	go[2].gloss = 4;
+
 
 	// Camera
 	cam.view = glm::lookAt(glm::vec3(0, 2, 5), glm::vec3(0, 1, 0), glm::vec3(0, 1, 0));

@@ -1,11 +1,6 @@
 #pragma once
 #include "glm\fwd.hpp"
-struct Geometry;
-struct FrameBuffer;
-struct Shader;
-struct Texture;
-
-
+#include "graphics\RenderObjects.h"
 void s0_draw(const FrameBuffer &f, const Shader &s, const Geometry &g);
 
 void setUniform(const Shader &shader, int location, float value);
@@ -24,7 +19,7 @@ namespace __internal
 	void t_setUniform(const Shader & s, int & loc_io, int & tex_io, const glm::vec3 & val);
 	void t_setUniform(const Shader & s, int & loc_io, int & tex_io, const glm::vec4 & val);
 	void t_setUniform(const Shader & s, int & loc_io, int & tex_io, const glm::mat4 & val);
-
+	void t_setUniform(const Shader &s, int &loc_io, int &tex_io, const cubeTexture & val);
 
 }
 
